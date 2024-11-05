@@ -36,8 +36,8 @@ export default {
                 { id: '15', frontSrc: '/images/que_icon.svg', backSrc: '/images/img-7.png' },
                 { id: '16', frontSrc: '/images/que_icon.svg', backSrc: '/images/img-8.png' },
             ],
-            firstImage: null,
-            secondImage: null,
+            cardOne: null,
+            cardTwo: null,
             lockBoard: false,
             matchedPairs: 0,
         }
@@ -57,7 +57,7 @@ export default {
 
         // Function of rotate
         rotate(index) {
-            if (this.lockBoard || index === this.firstImage) return;
+            if (this.lockBoard || index === this.cardOne) return;
 
             let frontCard = document.querySelector(`#front${index}`);
             let backCard = document.querySelector(`#back${index}`);
@@ -65,18 +65,18 @@ export default {
             frontCard.style.transform = 'rotateY(-180deg)';
             backCard.style.transform = 'rotateY(0)';
 
-            if (this.firstImage === null) {
-                this.firstImage = index;
+            if (this.cardOne === null) {
+                this.cardOne = index;
             } else {
-                this.secondImage = index;
+                this.cardTwo = index;
                 this.matchCard();
             }
         },
 
         // Function of match card
         matchCard() {
-            const cardMatchOne = this.cardData[this.firstImage].backSrc;
-            const cardMatchTwo = this.cardData[this.secondImage].backSrc;
+            const cardMatchOne = this.cardData[this.cardOne].backSrc;
+            const cardMatchTwo = this.cardData[this.cardTwo].backSrc;
 
             if (cardMatchOne === cardMatchTwo) {
                 this.matchedPairs++;
@@ -98,21 +98,23 @@ export default {
 
         // Function of reset rotate
         resetRotate() {
-            let firstCardFront = document.querySelector(`#front${this.firstImage}`);
-            let firstCardBack = document.querySelector(`#back${this.firstImage}`);
-            let secondCardFront = document.querySelector(`#front${this.secondImage}`);
-            let secondCardBack = document.querySelector(`#back${this.secondImage}`);
+            let firstCardFront = document.querySelector(`#front${this.cardOne}`);
+            let firstCardBack = document.querySelector(`#back${this.cardOne}`);
+            let secondCardFront = document.querySelector(`#front${this.cardTwo}`);
+            let secondCardBack = document.querySelector(`#back${this.cardTwo}`);
 
             firstCardFront.style.transform = 'rotateY(0)';
             firstCardBack.style.transform = 'rotateY(-180deg)';
             secondCardFront.style.transform = 'rotateY(0)';
             secondCardBack.style.transform = 'rotateY(-180deg)';
         },
+
+        // Function of shake card box
         shakeCardBox() {
-            let firstCardFront = document.querySelector(`#front${this.firstImage}`);
-            let firstCardBack = document.querySelector(`#back${this.firstImage}`);
-            let secondCardFront = document.querySelector(`#front${this.secondImage}`);
-            let secondCardBack = document.querySelector(`#back${this.secondImage}`);
+            let firstCardFront = document.querySelector(`#front${this.cardOne}`);
+            let firstCardBack = document.querySelector(`#back${this.cardOne}`);
+            let secondCardFront = document.querySelector(`#front${this.cardTwo}`);
+            let secondCardBack = document.querySelector(`#back${this.cardTwo}`);
 
             firstCardFront.classList.add('card-shake');
             firstCardBack.classList.add('card-shake');
@@ -128,18 +130,18 @@ export default {
 
         // Function of reset board
         resetBoard() {
-            let firstCardFront = document.querySelector(`#front${this.firstImage}`);
-            let firstCardBack = document.querySelector(`#back${this.firstImage}`);
-            let secondCardFront = document.querySelector(`#front${this.secondImage}`);
-            let secondCardBack = document.querySelector(`#back${this.secondImage}`);
+            let firstCardFront = document.querySelector(`#front${this.cardOne}`);
+            let firstCardBack = document.querySelector(`#back${this.cardOne}`);
+            let secondCardFront = document.querySelector(`#front${this.cardTwo}`);
+            let secondCardBack = document.querySelector(`#back${this.cardTwo}`);
 
             firstCardFront.classList.remove('card-shake');
             firstCardBack.classList.remove('card-shake');
             secondCardFront.classList.remove('card-shake');
             secondCardBack.classList.remove('card-shake');
 
-            this.firstImage = null;
-            this.secondImage = null;
+            this.cardOne = null;
+            this.cardTwo = null;
             this.lockBoard = false;
         },
 
@@ -151,8 +153,8 @@ export default {
                 frontCard.style.transform = 'rotateY(0)';
                 backCard.style.transform = 'rotateY(-180deg)';
             });
-            this.firstImage = null;
-            this.secondImage = null;
+            this.cardOne = null;
+            this.cardTwo = null;
             this.lockBoard = false;
             this.matchedPairs = 0;
             this.shuffleCard();
