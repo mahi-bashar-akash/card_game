@@ -1,0 +1,13 @@
+{
+  "resources/js/spa/app.js": {
+    "file": "assets/app-Bb8ra6c5.js",
+    "name": "app",
+    "src": "resources/js/spa/app.js",
+    "isEntry": true
+  },
+  "resources/scss/style-sheet.scss": {
+    "file": "assets/style-sheet-Dojbqjpv.css",
+    "src": "resources/scss/style-sheet.scss",
+    "isEntry": true
+  }
+}
