@@ -17,8 +17,8 @@ const routes = [
     {
         path: '/', name: 'layout', component: layout,
         children: [
-            {path: '', name: 'home', component: home },
-            {path: 'game', name: 'game', component: game },
+            {path: 'home', name: 'home', component: home },
+            {path: '', name: 'game', component: game },
             {path: 'profile', name: 'profile', component: profile },
             {path: 'shop', name: 'shop', component: shop },
             {path: 'settings', name: 'settings', component: settings },

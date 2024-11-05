@@ -1,23 +1,58 @@
 <template>
+
+    <!-- game content start -->
     <div class="game">
+
+        <!-- card start -->
         <div class="card">
-            <div v-for="(each, index) in cardData" :key="index" class="card-box" @click="rotate(index)">
-                <div class="card-view front" :id="'front'+index">
-                    <img :src="each.frontSrc" alt="image-front">
+
+            <template v-for="(each, index) in cardData" :key="index">
+
+                <!-- card box start -->
+                <div class="card-box" @click="rotate(index)">
+
+                    <!-- card view --- front start -->
+                    <div class="card-view front" :id="'front'+index">
+
+                        <!-- front image start -->
+                        <img :src="each.frontSrc" alt="image-front">
+                        <!-- front image end -->
+
+                    </div>
+                    <!-- card view --- front end -->
+
+                    <!-- card view --- back start -->
+                    <div class="card-view back" :id="'back'+index">
+
+                        <!-- back image start -->
+                        <img :src="each.backSrc" alt="image-back">
+                        <!-- back image end -->
+
+                    </div>
+                    <!-- card view --- back end -->
+
                 </div>
-                <div class="card-view back" :id="'back'+index">
-                    <img :src="each.backSrc" alt="image-back">
-                </div>
-            </div>
+                <!-- card box end -->
+
+            </template>
+
         </div>
+        <!-- card end -->
+
     </div>
+    <!-- game content end -->
+
 </template>
 
 <script>
+
 export default {
+
     data() {
+
         return {
-            // Data properties
+
+            // Data properties start
             cardData: [
                 { id: '1', frontSrc: '/images/que_icon.svg', backSrc: '/images/img-1.png' },
                 { id: '2', frontSrc: '/images/que_icon.svg', backSrc: '/images/img-2.png' },
@@ -40,22 +75,30 @@ export default {
             cardTwo: null,
             lockBoard: false,
             matchedPairs: 0,
+            // Data properties end
+
         }
+
     },
+
     mounted() {
+
         this.shuffleCard();
+
     },
+
     methods: {
 
-        // Function of shuffle card
+        // Function of shuffle card start
         shuffleCard() {
             for (let i = 0; i < this.cardData.length; i++) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [this.cardData[i], this.cardData[j]] = [this.cardData[j], this.cardData[i]];
             }
         },
+        // Function of shuffle card end
 
-        // Function of rotate
+        // Function of rotate start
         rotate(index) {
             if (this.lockBoard || index === this.cardOne) return;
 
@@ -72,8 +115,9 @@ export default {
                 this.matchCard();
             }
         },
+        // Function of rotate end
 
-        // Function of match card
+        // Function of match card start
         matchCard() {
             const cardMatchOne = this.cardData[this.cardOne].backSrc;
             const cardMatchTwo = this.cardData[this.cardTwo].backSrc;
@@ -95,8 +139,9 @@ export default {
                 }, 500);
             }
         },
+        // Function of match card end
 
-        // Function of reset rotate
+        // Function of reset rotate start
         resetRotate() {
             let firstCardFront = document.querySelector(`#front${this.cardOne}`);
             let firstCardBack = document.querySelector(`#back${this.cardOne}`);
@@ -108,8 +153,9 @@ export default {
             secondCardFront.style.transform = 'rotateY(0)';
             secondCardBack.style.transform = 'rotateY(-180deg)';
         },
+        // Function of reset rotate end
 
-        // Function of shake card box
+        // Function of shake card box start
         shakeCardBox() {
             let firstCardFront = document.querySelector(`#front${this.cardOne}`);
             let firstCardBack = document.querySelector(`#back${this.cardOne}`);
@@ -121,14 +167,16 @@ export default {
             secondCardFront.classList.add('card-shake');
             secondCardBack.classList.add('card-shake');
         },
+        // Function of shake card box end
 
-        // Function of flip card
+        // Function of flip card start
         flipCard() {
             this.resetRotate();
             this.resetBoard();
         },
+        // Function of flip card end
 
-        // Function of reset board
+        // Function of reset board start
         resetBoard() {
             let firstCardFront = document.querySelector(`#front${this.cardOne}`);
             let firstCardBack = document.querySelector(`#back${this.cardOne}`);
@@ -144,8 +192,9 @@ export default {
             this.cardTwo = null;
             this.lockBoard = false;
         },
+        // Function of reset board end
 
-        // Function of reset game
+        // Function of reset game start
         resetGame() {
             this.cardData.forEach((card, index) => {
                 let frontCard = document.querySelector(`#front${index}`);
@@ -159,7 +208,9 @@ export default {
             this.matchedPairs = 0;
             this.shuffleCard();
         },
+        // Function of reset game end
 
     }
+
 }
 </script>
